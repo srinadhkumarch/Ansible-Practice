@@ -1,0 +1,47 @@
+---
+ - hosts: Slaves
+   tasks:
+    - name: create directory for ansible custom facts 
+      file: state=directory recurse=yes path=/etc/ansible/facts.d
+    - name: install custom ipmi fact
+      copy: src=message.fact dest=/etc/ansible/facts.d    
+    - name: re-read facts after adding custom fact    
+      setup: filter=ansible_local
+      register: task_rc
+    - name: display messge
+      debug:
+        msg: "{{ task_rc }}"
+    - nodename:
+        msg: "{{ ansible_facts['nodename'] }}"
+ - name: All Host
+   hosts: Slaves
+   vars:
+      All_message: "Running on all Slaves"
+   tasks:
+    - name: Display message
+      debug:
+        msg: "{{ All_message }}"
+    - name: Execute below command to copy data        
+      script: script.sh
+ - name: Only Slave1
+   hosts: Slave1
+   vars:
+      Slave1_message : "Welcome to Slave1"
+   tasks:
+    - name: Display Below message
+      debug:
+        msg: "{{ Slave1_message }}"
+    - name: Display locak
+      debug:
+        msg: "{{ ansible_local['message']['general']['slave1_message'] }}"
+ - hosts: Slave2
+   name: Only Slave2
+   vars:
+      Slave2_message : "Welcome to Slave2"
+   tasks:
+    - name: Display Below message
+      debug:
+        msg: "{{ Slave2_message }}"
+    - name: Display local
+      debug:
+        msg: "{{ ansible_local['message']['general']['slave2_message'] }}"

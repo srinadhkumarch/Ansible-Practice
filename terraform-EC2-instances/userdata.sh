@@ -9,7 +9,7 @@ amazon-linux-extras install docker -y
 service docker start
 export PASSWD=Indi@123
 sudo useradd -p $(openssl passwd -1 $PASSWD) ansible2
-echo “ansible ALL=(ALL)   NOPASSWD:ALL” >> /etc/sudoers
+echo "ansible ALL=(ALL)   NOPASSWD:ALL" >> /etc/sudoers
 # sudo sed –i ‘/PasswordAuthentication yes/s/^#//’ /etc/ssh/sshd_config
 # sudo sed –i “s/PasswordAuthentication no/#PasswordAuthentication no/g” /etc/ssh/sshd_config
 sudo service sshd restart 

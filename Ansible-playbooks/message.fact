@@ -1,0 +1,4 @@
+[general]
+Slave1_message="Welcome to Slave1" 
+Slave2_message="Welcome to Slave2" 
+All_message="Running on all Slaves"
