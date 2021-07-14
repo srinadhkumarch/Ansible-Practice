@@ -1,5 +1,6 @@
 vpc_id          = "vpc-0c270506c25b85b0f"
 instance_type   = "t2.micro"
+instance_cat    = "AnsibleInstances"
 instance_name   = ["AnsibleInstance_master","AnsibleInstance_slave_1","AnsibleInstance_slave_2"]
 key_name        = "AnsibleInstanceKeyPair"
 key_public_path = "./key-pair-ssh/ssh_keypair_ec2.pub"

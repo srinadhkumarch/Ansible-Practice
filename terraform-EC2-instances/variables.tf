@@ -12,3 +12,4 @@ variable "userdata_path" {}
 variable "SG_Name" {}
 variable "Ingress_list" {}
 variable "Egress_list" {}
+variable "instance_cat" {}
