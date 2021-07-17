@@ -21,3 +21,11 @@ ansible Slaves -m copy -a "src = /home/ec2-user/sampledata dest = /home/ec2-user
 
 ansible-playbook 
 {{ ansible_local['message']['general']['slave2_message'] }}
+
+
+sudo usermod -aG root ansible
+
+/usr/local/bin
+/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+
+ansible-inventory -i test.yml --list

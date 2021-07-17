@@ -6,7 +6,8 @@ resource "aws_instance" "Ansible_Instances" {
   vpc_security_group_ids = [aws_security_group.EC2_SG.id]
   user_data              = "${file(var.userdata_path)}"
   subnet_id = local.subnet_ids[count.index]
-  count     = length(local.subnet_ids)
+  # count     = length(local.subnet_ids)
+  count = 2
   tags = {
     Name      = var.instance_name[count.index]
     terraform = true

@@ -1,18 +1,21 @@
 ---
  - hosts: Slaves
+   become: true
+   become-user: root
    tasks:
     - name: create directory for ansible custom facts 
-      file: state=directory recurse=yes path=/etc/ansible/facts.d
+      file: state=directory recurse=yes path=/home/ansible/facts.d
     - name: install custom ipmi fact
-      copy: src=message.fact dest=/etc/ansible/facts.d    
+      copy: src=message.fact dest=/home/ansible/facts.d
     - name: re-read facts after adding custom fact    
       setup: filter=ansible_local
       register: task_rc
     - name: display messge
       debug:
         msg: "{{ task_rc }}"
-    - nodename:
-        msg: "{{ ansible_facts['nodename'] }}"
+    - name: node name
+      debug:
+        msg: "{{ ansible_facts['nodename'] }}" 
  - name: All Host
    hosts: Slaves
    vars:
