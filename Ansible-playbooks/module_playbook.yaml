@@ -1,0 +1,29 @@
+---
+ - hosts: all
+   name: Run on all
+   become: true
+   become_user: root
+   strategy: free
+   any_errors_fatal: true      
+#   serial: 3
+   tasks:
+    - name: yum install httpd  
+      yum:
+        name: httpd
+        state: latest
+    - name: start httpd service
+      service:
+        name: httpd
+        state: started
+    - name: Copy index file
+      copy:
+        src: /home/ansible/index.html
+        dest: /var/www/html/index.html
+    - name: Check status
+      command: systemctl status httpd.service        
+      register: status_check
+      ignore_errors: yes
+    - name: Check index file
+      command: cat /var/www/html/index.html
+      register: index_out
+      failed_when: "'Error' in index_out.stdout" 
