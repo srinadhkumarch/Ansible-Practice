@@ -1,0 +1,36 @@
+---
+ - hosts: all
+   name: Checking roles
+   roles:
+     - role: foo_app_instance
+       vars:
+         myapp_str: "input"
+   vars:
+     condition_var: false
+   tasks:
+   - name: Include the foo_app_instance role   
+     include_role:
+       name: foo_app_instance
+     vars:
+       myapp_str: "Input"
+       message: "From playbook to role changes"
+     tags: typeA
+   - name: Second role
+     import_role:
+       name: foo_app_instance
+     vars:
+        myapp_str: "Second"
+     when: "condition_var == true"
+   - name: Print a message
+     ansible.builtin.debug:
+        msg: "this task runs after the Changes"      
+   - name: Copy Facts
+     ansible.builtin.copy:
+       src: /home/ansible/facts/message.fact
+       dest: /home/ansible/message.fact
+     notify:
+      - end of message
+   handlers:
+   - name: end of message
+     ansible.builtin.debug:
+       msg: "Handler message"

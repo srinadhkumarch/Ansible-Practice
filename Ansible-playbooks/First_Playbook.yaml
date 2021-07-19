@@ -48,3 +48,9 @@
     - name: Display local
       debug:
         msg: "{{ ansible_local['message']['general']['slave2_message'] }}"
+      notify:
+      - end of message
+   handlers:
+   - name: end of message
+     ansible.builtin.debug:
+       msg: "Handler message"

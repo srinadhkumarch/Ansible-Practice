@@ -1,0 +1,40 @@
+---
+ - hosts: all
+   name: Looping
+#   become: true
+#   become_user: root
+   tasks:
+    - name: Add several users
+      ansible.builtin.debug:
+        msg:"{{ item.key }}"
+      loop: "{{ tag_data | dict2items }}"
+      vars:
+       tag_data:
+         Environment: dev
+         Application: payment
+      register: task_rc
+      loop_control:
+         label: "{{ item.key }}"
+#    - name: Display rc
+#      ansible.builtin.debug:
+#        msg: "{{ task_rc }}"
+#    - name: Retry a task until a certain condition is met
+#      ansible.builtin.shell: echo "here"
+#      register: result
+#      until: result.stdout.find("here") != "here"   
+#      retries: 5
+#      delay: 10
+    - name: Show all the hosts in the inventory      
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ groups['all'] }}"
+
+    - name: Show all the hosts in the current play   
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ ansible_play_batch }}"
+    - name: Inventory list
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ query('inventory_hostnames', 'all:!Slave') }}"
+#      loop: "{{ lookup('inventory_hostnames', 'all', wantlist=True) }}"

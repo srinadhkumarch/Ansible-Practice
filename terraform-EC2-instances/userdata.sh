@@ -23,4 +23,4 @@ su -c "pip3 install ansible-lint --user ansible" -s /bin/sh ansible
 export PATH="$PATH:/home/ansible/.local/bin"
 su -c "cd /home/ansible && mkdir .ssh" -s /bin/sh ansible
 su -c "cd /home/ansible/.ssh && touch authorized_keys" -s /bin/sh ansible
-su -c "chmod 600 authorized_keys " -s /bin/sh ansible
+su -c "cd /home/ansible/.ssh && chmod 600 authorized_keys " -s /bin/sh ansible

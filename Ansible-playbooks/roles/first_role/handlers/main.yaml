@@ -1,0 +1,3 @@
+ - name: Notify message
+   ansible.builtin.debug:
+     msg: "Handler message"

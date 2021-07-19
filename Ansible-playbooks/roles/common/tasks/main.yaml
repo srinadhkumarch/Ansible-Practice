@@ -1,0 +1,3 @@
+ - name: from Common
+   ansible.builtin.debug:
+     msg: "{{ common_msg }}"
